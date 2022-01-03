@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./Settings.module.css";
 import {Button} from "../components/Button/Button";
 
 export type SettingsPropsType = {
-    number: number
+    number: number | string
     setNumber: (number: number) => void
     startValue: number
     setStartValue: (startValue: number) => void
@@ -19,6 +19,20 @@ export const Settings = (props: SettingsPropsType) => {
 
     }
 
+    const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+        let newMaxValue = JSON.parse(e.currentTarget.value)
+        props.setMaxValue(newMaxValue)
+    }
+
+    const onChangeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
+        let newStartValue = JSON.parse(e.currentTarget.value)
+        if (newStartValue < 0) {
+            props.setNumber("Incorrect value")
+            setDisabledSetButton(true)
+        }
+        props.setStartValue(newStartValue)
+    }
+
     return (
         <div>
             <div className={classes.count}>
@@ -29,6 +43,7 @@ export const Settings = (props: SettingsPropsType) => {
                             <div><input
                                 type="number"
                                 className={classes.input}
+                                onChange={onChangeMaxValue}
                             /></div>
                         </div>
                         <div className={classes.pair}>
@@ -36,6 +51,7 @@ export const Settings = (props: SettingsPropsType) => {
                             <div><input
                                 type="number"
                                 className={classes.input}
+                                onChange={onChangeStartValue}
 
                             /></div>
                         </div>
@@ -45,7 +61,9 @@ export const Settings = (props: SettingsPropsType) => {
                     <Button name='set'
                             callBack={callBackSettings}
                             disabledButton={disabledSetButton}
-                            disabled={props.startValue===props.maxValue}
+                            disabled={props.startValue===props.maxValue
+                            || props.startValue < 0
+                            ||  props.startValue > props.maxValue}
                     />
                 </div>
             </div>

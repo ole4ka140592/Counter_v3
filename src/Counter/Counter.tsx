@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import classes from "./Counter.module.css";
 
 type CounterNEWPropsType = {
-    number: number
+    number: number | string
     setNumber: (number: number) => void
     startValue: number
     setStartValue: (startValue: number) => void

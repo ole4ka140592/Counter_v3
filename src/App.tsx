@@ -6,7 +6,7 @@ import {Counter} from "./Counter/Counter";
 
 function App() {
 
-    let [number, setNumber] = useState<number>(0)
+    let [number, setNumber] = useState<number | string>(0)
 
     let [startValue, setStartValue] = useState<number>(1)
 
