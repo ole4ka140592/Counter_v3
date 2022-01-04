@@ -57,8 +57,8 @@
 }
 
 .errorInput {
+   background-color: red;
     margin-left: 15px;
     width: 100px;
     height: 17px;
-    background-color: red;
 }

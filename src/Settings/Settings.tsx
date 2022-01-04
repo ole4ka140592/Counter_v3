@@ -11,6 +11,8 @@ export type SettingsPropsType = {
     setMaxValue: (maxValue: number) => void
     error: null | string
     setError: (error: null | string) => void
+
+
 }
 
 export const Settings = (props: SettingsPropsType) => {
@@ -48,14 +50,40 @@ export const Settings = (props: SettingsPropsType) => {
     const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         let newMaxValue = JSON.parse(e.currentTarget.value)
         props.setMaxValue(newMaxValue)
+        if (newMaxValue < 0) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else if (newMaxValue < props.startValue) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else if (newMaxValue === props.startValue) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else {
+            props.setError('enter values and press "set"')
+        }
     }
 
     const onChangeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
         let newStartValue = JSON.parse(e.currentTarget.value)
         props.setStartValue(newStartValue)
+
+        if (newStartValue < 0) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else if (newStartValue > props.maxValue) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else if (newStartValue === props.maxValue) {
+            props.setError("Incorrect value")
+            setDisabledSetButton(true)
+        } else {
+            props.setError('enter values and press "set"')
+        }
     }
 
     const callBackSettings = () => {
+        props.setError("")
         localStorage.setItem("maxValue", JSON.stringify(props.maxValue))
         localStorage.setItem("startValue", JSON.stringify(props.startValue))
         let newStartNumberString = (localStorage.getItem("startValue"))
@@ -64,21 +92,6 @@ export const Settings = (props: SettingsPropsType) => {
             props.setNumber(newStartNumber)
         }
     }
-
-        // if (newStartNumberString < 0 &&) {
-        //     props.setError("Incorrect value")
-        //     setDisabledSetButton(true)
-        // } else if (newMaxValue < props.startValue) {
-        //     props.setError("Incorrect value")
-        //     setDisabledSetButton(true)
-        // } else if (newMaxValue === props.startValue) {
-        //     props.setError("Incorrect value")
-        //     setDisabledSetButton(true)
-        // } else {
-        //     props.setError('enter values and press "set"')
-        //
-        // }
-    // }
 
 
     return (
@@ -90,7 +103,7 @@ export const Settings = (props: SettingsPropsType) => {
                             <div className={classes.span}><span>max value:</span></div>
                             <div><input
                                 type="number"
-                                className={classes.input}
+                                className={props.error ? classes.errorInput : classes.input}
                                 onChange={onChangeMaxValue}
                                 value={props.maxValue}
                             /></div>
@@ -99,7 +112,7 @@ export const Settings = (props: SettingsPropsType) => {
                             <div className={classes.span}><span>start value:</span></div>
                             <div><input
                                 type="number"
-                                className={classes.input}
+                                className={props.error ? classes.errorInput : classes.input}
                                 onChange={onChangeStartValue}
                                 value={props.startValue}
                             /></div>
