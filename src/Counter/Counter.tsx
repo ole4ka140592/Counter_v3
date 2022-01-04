@@ -31,17 +31,9 @@ export const Counter = (props: CounterNEWPropsType) => {
 
 
     const callBackIncrement = () => {
-
-
-        // if (props.startValue < props.maxValue) {
-        if (props.number) {
-            props.setNumber(props.number + 1)
-        }
-        // }
-        // if (props.number === props.maxValue) {
-        //     setDisabledIncButton(true)
-        // }
+        props.setNumber(props.number + 1)
     }
+
 
     const callBackReset = () => {
         props.setNumber(props.startValue)
@@ -61,7 +53,8 @@ export const Counter = (props: CounterNEWPropsType) => {
                     <Button name='inc'
                             callBack={callBackIncrement}
                             disabledButton={disabledIncButton}
-                            disabled={props.number === props.maxValue
+                            disabled={props.startValue === props.maxValue
+                            || props.number === props.maxValue
                             || props.startValue < 0
                             || props.maxValue < 0
                             || props.startValue > props.maxValue
@@ -70,7 +63,8 @@ export const Counter = (props: CounterNEWPropsType) => {
                     <Button name='reset'
                             callBack={callBackReset}
                             disabledButton={disabledResetButton}
-                            disabled={props.number === props.startValue
+                            disabled={props.maxValue === props.startValue
+                            || props.number === props.startValue
                             || props.startValue < 0
                             || props.maxValue < 0
                             || props.startValue > props.maxValue

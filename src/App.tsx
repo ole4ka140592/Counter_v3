@@ -15,20 +15,6 @@ function App() {
     let [error, setError] = useState<null | string>(null)
 
 
-
-    // useEffect(() => {
-    //
-    //     let newStartNumberString = localStorage.getItem("startValue")
-    //     if (newStartNumberString) {
-    //         let newStartNumber = JSON.parse(newStartNumberString)
-    //         setNumber(newStartNumber)
-    //     }
-    // }, [])
-
-
-
-
-
     return (
 
         <div className={classes.information}>
