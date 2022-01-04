@@ -16,13 +16,14 @@ function App() {
 
 
 
-    useEffect(() => {
-        let newStartNumberString = (localStorage.getItem("startValue"))
-        if (newStartNumberString) {
-            let newStartNumber = JSON.parse(newStartNumberString)
-            setNumber(newStartNumber)
-        }
-    }, [])
+    // useEffect(() => {
+    //
+    //     let newStartNumberString = localStorage.getItem("startValue")
+    //     if (newStartNumberString) {
+    //         let newStartNumber = JSON.parse(newStartNumberString)
+    //         setNumber(newStartNumber)
+    //     }
+    // }, [])
 
 
 

@@ -22,6 +22,7 @@ export const Settings = (props: SettingsPropsType) => {
         if (newStartNumberString) {
             let newStartNumber = JSON.parse(newStartNumberString)
             props.setStartValue(newStartNumber)
+            props.setNumber(newStartNumber)
         }
     }, [])
 
