@@ -1,14 +1,16 @@
 import {Button} from "../components/Button/Button";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import classes from "./Counter.module.css";
 
 type CounterNEWPropsType = {
-    number: number | string
+    number: number
     setNumber: (number: number) => void
     startValue: number
     setStartValue: (startValue: number) => void
     maxValue: number
     setMaxValue: (maxValue: number) => void
+    error: null | string
+    setError: (error: null | string) => void
 }
 
 export const Counter = (props: CounterNEWPropsType) => {
@@ -17,14 +19,28 @@ export const Counter = (props: CounterNEWPropsType) => {
 
     let [disabledResetButton, setDisabledResetButton] = useState<boolean>(false)
 
+    // useEffect(() => {
+    //     localStorage.setItem("startValue", JSON.stringify(props.startValue))
+    //
+    // }, [props.startValue])
+    //
+    // useEffect(() => {
+    //
+    //     localStorage.setItem("maxValue", JSON.stringify(props.maxValue))
+    // }, [props.maxValue])
+
+
     const callBackIncrement = () => {
-        props.setNumber(props.startValue)
-        if (props.number < props.maxValue) {
+
+
+        // if (props.startValue < props.maxValue) {
+        if (props.number) {
             props.setNumber(props.number + 1)
         }
-        if (props.number === props.maxValue) {
-            setDisabledIncButton(true)
-        }
+        // }
+        // if (props.number === props.maxValue) {
+        //     setDisabledIncButton(true)
+        // }
     }
 
     const callBackReset = () => {
@@ -37,19 +53,28 @@ export const Counter = (props: CounterNEWPropsType) => {
     return (
         <div>
             <div className={classes.count}>
-                <div className={props.number === props.maxValue? classes.numberRed: classes.number}>
-                    <span>{props.number}</span>
+                <div className={props.number === props.maxValue ? classes.numberRed : classes.number}>
+                    <span
+                        className={props.error ? classes.error : classes.numberNumber}>{props.error ? props.error : props.number}</span>
                 </div>
                 <div className={classes.buttons}>
                     <Button name='inc'
                             callBack={callBackIncrement}
                             disabledButton={disabledIncButton}
-                            disabled={props.number === props.maxValue}
+                            disabled={props.number === props.maxValue
+                            || props.startValue < 0
+                            || props.maxValue < 0
+                            || props.startValue > props.maxValue
+                            }
                     />
                     <Button name='reset'
                             callBack={callBackReset}
                             disabledButton={disabledResetButton}
-                            disabled={props.number === props.startValue}
+                            disabled={props.number === props.startValue
+                            || props.startValue < 0
+                            || props.maxValue < 0
+                            || props.startValue > props.maxValue
+                            }
                     />
                 </div>
             </div>
