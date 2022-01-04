@@ -59,5 +59,8 @@
 .error {
   font-size: 20px;
   color: red;
+}
 
+.errorSet {
+  font-size: 20px;
 }

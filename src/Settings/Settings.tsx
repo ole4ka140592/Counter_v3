@@ -103,7 +103,9 @@ export const Settings = (props: SettingsPropsType) => {
                             <div className={classes.span}><span>max value:</span></div>
                             <div><input
                                 type="number"
-                                className={props.error ? classes.errorInput : classes.input}
+                                className={props.maxValue < 0 || props.startValue === props.maxValue
+                                || props.startValue > props.maxValue
+                                    ? classes.errorInput : classes.input}
                                 onChange={onChangeMaxValue}
                                 value={props.maxValue}
                             /></div>
@@ -112,7 +114,9 @@ export const Settings = (props: SettingsPropsType) => {
                             <div className={classes.span}><span>start value:</span></div>
                             <div><input
                                 type="number"
-                                className={props.error ? classes.errorInput : classes.input}
+                                className={props.startValue < 0 || props.startValue === props.maxValue
+                                || props.startValue > props.maxValue
+                                    ? classes.errorInput : classes.input}
                                 onChange={onChangeStartValue}
                                 value={props.startValue}
                             /></div>

@@ -41,7 +41,9 @@ export const Counter = (props: CounterNEWPropsType) => {
         <div>
             <div className={classes.count}>
                 <div className={props.number === props.maxValue ? classes.numberRed : classes.number}>
-                    <span className={props.error ? classes.error : classes.numberNumber}>
+                    <span className={props.error==="Incorrect value" && classes.error
+                    || props.error==='enter values and press "set"' && classes.errorSet
+                    || classes.numberNumber}>
                         {props.error ? props.error : props.number}
                     </span>
                 </div>
